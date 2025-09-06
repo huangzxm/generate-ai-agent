@@ -31,7 +31,7 @@ import static com.yupi.generateaiagent.constant.UserConstant.USER_LOGIN_STATE;
  * @author <a href="https://github.com/huangzxm">huangzxm</a>
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -184,5 +184,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
         final String SALT = "yupi";
         return DigestUtils.md5DigestAsHex((userPassword + SALT).getBytes(StandardCharsets.UTF_8));
     }
-
 }
