@@ -1,7 +1,7 @@
-package com.yupi.yuaicodemother.genresult.service;
+package com.yupi.generateaiagent.service;
 
 import com.mybatisflex.core.service.IService;
-import com.yupi.yuaicodemother.genresult.entity.User;
+import com.yupi.generateaiagent.entity.User;
 
 /**
  * 用户 服务层。

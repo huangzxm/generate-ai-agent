@@ -1,7 +1,7 @@
-package com.yupi.yuaicodemother.genresult.mapper;
+package com.yupi.generateaiagent.mapper;
 
 import com.mybatisflex.core.BaseMapper;
-import com.yupi.yuaicodemother.genresult.entity.User;
+import com.yupi.generateaiagent.entity.User;
 
 /**
  * 用户 映射层。

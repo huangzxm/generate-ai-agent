@@ -1,4 +1,4 @@
-package com.yupi.yuaicodemother.genresult.controller;
+package com.yupi.generateaiagent.controller;
 
 import com.mybatisflex.core.paginate.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.yupi.yuaicodemother.genresult.entity.User;
-import com.yupi.yuaicodemother.genresult.service.UserService;
+import com.yupi.generateaiagent.entity.User;
+import com.yupi.generateaiagent.service.UserService;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
