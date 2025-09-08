@@ -14,6 +14,7 @@ import com.yupi.generateaiagent.exception.ThrowUtils;
 import com.yupi.generateaiagent.model.dto.AppAddRequest;
 import com.yupi.generateaiagent.model.dto.AppUpdateRequest;
 import com.yupi.generateaiagent.model.enums.CodeGenTypeEnum;
+import com.yupi.generateaiagent.model.vo.AppVO;
 import com.yupi.generateaiagent.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -198,6 +199,21 @@ public class AppController {
         return ResultUtils.success(result);
     }
 
+    /**
+     * 根据 id 获取应用详情
+     *
+     * @param id      应用 id
+     * @return 应用详情
+     */
+    @GetMapping("/get/vo")
+    public BaseResponse<AppVO> getAppVOById(long id) {
+        ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
+        // 查询数据库
+        App app = appService.getById(id);
+        ThrowUtils.throwIf(app == null, ErrorCode.NOT_FOUND_ERROR);
+        // 获取封装类（包含用户信息）
+        return ResultUtils.success(appService.getAppVO(app));
+    }
 
 
 }
