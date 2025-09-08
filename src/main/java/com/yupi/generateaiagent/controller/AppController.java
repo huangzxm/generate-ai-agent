@@ -23,17 +23,12 @@ import com.yupi.generateaiagent.model.vo.AppVO;
 import com.yupi.generateaiagent.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.yupi.generateaiagent.entity.App;
 import com.yupi.generateaiagent.service.AppService;
-import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -353,5 +348,27 @@ public class AppController {
         // 获取封装类
         return ResultUtils.success(appService.getAppVO(app));
     }
+
+    /**
+     * 应用聊天生成代码（流式 SSE）
+     *
+     * @param appId   应用 ID
+     * @param message 用户消息
+     * @param request 请求对象
+     * @return 生成结果流
+     */
+    @GetMapping(value = "/chat/gen/code", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> chatToGenCode(@RequestParam Long appId,
+                                      @RequestParam String message,
+                                      HttpServletRequest request) {
+        // 参数校验
+        ThrowUtils.throwIf(appId == null || appId <= 0, ErrorCode.PARAMS_ERROR, "应用ID无效");
+        ThrowUtils.throwIf(StrUtil.isBlank(message), ErrorCode.PARAMS_ERROR, "用户消息不能为空");
+        // 获取当前登录用户
+        User loginUser = userService.getLoginUser(request);
+        // 调用服务生成代码（流式）
+        return appService.chatToGenCode(appId, message, loginUser);
+    }
+
 
 }
