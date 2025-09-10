@@ -22,10 +22,10 @@ public class AiCodeGeneratorServiceFactory {
     private ChatModel chatModel;
 
     @Resource
-    private StreamingChatModel streamingChatModel;
+    private StreamingChatModel openAiStreamingChatModel;
 
     @Resource
-    private RedisChatMemoryStore redisChatMemoryStore;
+    private StreamingChatModel reasoningStreamingChatModel;
 
     /**
      * AI 服务实例缓存
