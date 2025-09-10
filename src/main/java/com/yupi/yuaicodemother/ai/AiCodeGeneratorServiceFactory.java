@@ -27,6 +27,10 @@ public class AiCodeGeneratorServiceFactory {
     @Resource
     private StreamingChatModel reasoningStreamingChatModel;
 
+
+    @Resource
+    private RedisChatMemoryStore redisChatMemoryStore;
+
     /**
      * AI 服务实例缓存
      * 缓存策略：
@@ -64,7 +68,7 @@ public class AiCodeGeneratorServiceFactory {
                 .build();
         return AiServices.builder(AiCodeGeneratorService.class)
                 .chatModel(chatModel)
-                .streamingChatModel(streamingChatModel)
+                .streamingChatModel(openAiStreamingChatModel)
                 .chatMemory(chatMemory)
                 .build();
     }
