@@ -40,6 +40,9 @@ public class AiCodeGeneratorServiceFactory {
     @Resource
     private ChatHistoryService chatHistoryService;
 
+    @Resource
+    private ToolManager toolManager;
+
     /**
      * AI 服务实例缓存
      */
@@ -122,11 +125,7 @@ public class AiCodeGeneratorServiceFactory {
                     .streamingChatModel(reasoningStreamingChatModel)
                     .chatMemoryProvider(memoryId -> chatMemory)
                     .tools(
-                            new FileReadTool(),
-                            new FileModifyTool(),
-                            new FileWriteTool(),
-                            new FileDeleteTool(),
-                            new FileDirReadTool()
+                            toolManager.getAllTools()
                     )
                     .hallucinatedToolNameStrategy(toolExecutionRequest -> ToolExecutionResultMessage.from(
                             toolExecutionRequest, "Error: there is no tool called " + toolExecutionRequest.name()
