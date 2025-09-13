@@ -1,7 +1,8 @@
 package com.yupi.yuaicodemother.langgraph4j.node;
 
-import com.yupi.yuaicodemother.langgraph4j.demo.enums.ImageCategoryEnum;
+
 import com.yupi.yuaicodemother.langgraph4j.model.ImageResource;
+import com.yupi.yuaicodemother.langgraph4j.model.enums.ImageCategoryEnum;
 import com.yupi.yuaicodemother.langgraph4j.state.WorkflowContext;
 import lombok.extern.slf4j.Slf4j;
 import org.bsc.langgraph4j.action.AsyncNodeAction;
