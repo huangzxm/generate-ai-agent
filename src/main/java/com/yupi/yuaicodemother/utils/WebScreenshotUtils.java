@@ -26,35 +26,22 @@ import java.util.UUID;
  */
 @Slf4j
 public class WebScreenshotUtils {
-    // 使用ThreadLocal存储每个线程的WebDriver实例
-    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-
-    public static WebDriver getDriver() {
-        WebDriver driver = driverThreadLocal.get();
-        if (driver == null) {
-            int DEFAULT_WIDTH = 1600;
-            int DEFAULT_HEIGHT = 900;
-            driver = initChromeDriver(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            driverThreadLocal.set(driver);
-        }
-        return driver;
-    }
+    private static final WebDriver webDriver;
 
     // 全局静态初始化，避免重复初始化驱动程序：
-//    static {
-//        final int DEFAULT_WIDTH = 1600;
-//        final int DEFAULT_HEIGHT = 900;
-//        webDriver = initChromeDriver(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-//    }
+    static {
+        final int DEFAULT_WIDTH = 1600;
+        final int DEFAULT_HEIGHT = 900;
+        webDriver = initChromeDriver(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
 
     /**
      * 退出时销毁
      */
     @PreDestroy
     public void destroy() {
-//        webDriver.quit();
-        driverThreadLocal.remove();
+        webDriver.quit();
     }
 
     /**
@@ -78,12 +65,11 @@ public class WebScreenshotUtils {
             // 原始图片保存路径
             String imageSavePath = rootPath + File.separator + RandomUtil.randomNumbers(5) + IMAGE_SUFFIX;
             // 访问网页
-            WebDriver driver = getDriver();
-            driver.get(webUrl);
+            webDriver.get(webUrl);
             // 等待网页加载
-            waitForPageLoad(driver);
+            waitForPageLoad(webDriver);
             // 截图
-            byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            byte[] screenshotBytes = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
             // 保存原始图片
             saveImage(screenshotBytes, imageSavePath);
             log.info("原始截图保存成功：{}", imageSavePath);

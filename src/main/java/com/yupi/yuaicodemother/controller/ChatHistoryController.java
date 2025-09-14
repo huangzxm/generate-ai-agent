@@ -11,11 +11,11 @@ import com.yupi.yuaicodemother.exception.ThrowUtils;
 import com.yupi.yuaicodemother.model.dto.chathistory.ChatHistoryQueryRequest;
 import com.yupi.yuaicodemother.model.entity.ChatHistory;
 import com.yupi.yuaicodemother.model.entity.User;
+import com.yupi.yuaicodemother.service.ChatHistoryService;
 import com.yupi.yuaicodemother.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
-import com.yupi.yuaicodemother.service.ChatHistoryService;
 
 import java.time.LocalDateTime;
 

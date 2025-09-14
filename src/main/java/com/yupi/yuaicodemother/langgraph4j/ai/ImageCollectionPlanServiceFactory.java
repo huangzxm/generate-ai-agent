@@ -6,6 +6,9 @@ import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 图片收集规划服务工厂
+ */
 @Configuration
 public class ImageCollectionPlanServiceFactory {
 

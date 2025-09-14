@@ -38,7 +38,7 @@ public class AiCodeGeneratorFacade {
      *
      * @param userMessage     用户提示词
      * @param codeGenTypeEnum 生成类型
-     * @param appId 应用 ID
+     * @param appId           应用 ID
      * @return 保存的目录
      */
     public File generateAndSaveCode(String userMessage, CodeGenTypeEnum codeGenTypeEnum, Long appId) {
@@ -46,7 +46,7 @@ public class AiCodeGeneratorFacade {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "生成类型不能为空");
         }
         // 根据 appId 获取相应的 AI 服务实例
-        AiCodeGeneratorService aiCodeGeneratorService = aiCodeGeneratorServiceFactory.getAiCodeGeneratorService(appId);
+        AiCodeGeneratorService aiCodeGeneratorService = aiCodeGeneratorServiceFactory.getAiCodeGeneratorService(appId, codeGenTypeEnum);
         return switch (codeGenTypeEnum) {
             case HTML -> {
                 HtmlCodeResult result = aiCodeGeneratorService.generateHtmlCode(userMessage);
@@ -68,14 +68,14 @@ public class AiCodeGeneratorFacade {
      *
      * @param userMessage     用户提示词
      * @param codeGenTypeEnum 生成类型
-     * @param appId 应用 ID
+     * @param appId           应用 ID
      * @return 保存的目录
      */
     public Flux<String> generateAndSaveCodeStream(String userMessage, CodeGenTypeEnum codeGenTypeEnum, Long appId) {
         if (codeGenTypeEnum == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "生成类型不能为空");
         }
-        // 根据 appId 获取对应的 AI 服务实例
+        // 根据 appId 获取相应的 AI 服务实例
         AiCodeGeneratorService aiCodeGeneratorService = aiCodeGeneratorServiceFactory.getAiCodeGeneratorService(appId, codeGenTypeEnum);
         return switch (codeGenTypeEnum) {
             case HTML -> {
@@ -95,7 +95,6 @@ public class AiCodeGeneratorFacade {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, errorMessage);
             }
         };
-
     }
 
     /**
@@ -129,13 +128,12 @@ public class AiCodeGeneratorFacade {
         });
     }
 
-
     /**
      * 通用流式代码处理方法
      *
      * @param codeStream  代码流
      * @param codeGenType 代码生成类型
-     * @param appId 应用 ID
+     * @param appId       应用 ID
      * @return 流式响应
      */
     private Flux<String> processCodeStream(Flux<String> codeStream, CodeGenTypeEnum codeGenType, Long appId) {

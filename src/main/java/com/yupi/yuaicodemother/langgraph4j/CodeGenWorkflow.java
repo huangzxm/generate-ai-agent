@@ -100,43 +100,6 @@ public class CodeGenWorkflow {
         return finalContext;
     }
 
-
-    /**
-     * 根据质检结果决定下一步
-     *
-     * @param state
-     * @return
-     */
-    private String routeAfterQualityCheck(MessagesState<String> state) {
-        WorkflowContext context = WorkflowContext.getContext(state);
-        QualityResult qualityResult = context.getQualityResult();
-        // 如果质检失败，重新生成代码
-        if (qualityResult == null || !qualityResult.getIsValid()) {
-            log.error("代码质检失败，需要重新生成代码");
-            return "fail";
-        }
-        // 质检通过，使用原有的构建路由逻辑
-        log.info("代码质检通过，继续后续流程");
-        return routeBuildOrSkip(state);
-    }
-
-    /**
-     * 根据代码生成类型决定是否需要构建
-     *
-     * @param state
-     * @return
-     */
-    private String routeBuildOrSkip(MessagesState<String> state) {
-        WorkflowContext context = WorkflowContext.getContext(state);
-        CodeGenTypeEnum generationType = context.getGenerationType();
-        // HTML 和 MULTI_FILE 类型不需要构建，直接结束
-        if (generationType == CodeGenTypeEnum.HTML || generationType == CodeGenTypeEnum.MULTI_FILE) {
-            return "skip_build";
-        }
-        // VUE_PROJECT 需要构建
-        return "build";
-    }
-
     /**
      * 执行工作流（Flux 流式输出版本）
      */
@@ -199,7 +162,6 @@ public class CodeGenWorkflow {
             return "event: error\ndata: {\"error\":\"格式化失败\"}\n\n";
         }
     }
-
 
     /**
      * 执行工作流（SSE 流式输出版本）
@@ -264,5 +226,39 @@ public class CodeGenWorkflow {
         }
     }
 
+    /**
+     * 根据质检结果决定下一步
+     *
+     * @param state
+     * @return
+     */
+    private String routeAfterQualityCheck(MessagesState<String> state) {
+        WorkflowContext context = WorkflowContext.getContext(state);
+        QualityResult qualityResult = context.getQualityResult();
+        // 如果质检失败，重新生成代码
+        if (qualityResult == null || !qualityResult.getIsValid()) {
+            log.error("代码质检失败，需要重新生成代码");
+            return "fail";
+        }
+        // 质检通过，使用原有的构建路由逻辑
+        log.info("代码质检通过，继续后续流程");
+        return routeBuildOrSkip(state);
+    }
 
+    /**
+     * 根据代码生成类型决定是否需要构建
+     *
+     * @param state
+     * @return
+     */
+    private String routeBuildOrSkip(MessagesState<String> state) {
+        WorkflowContext context = WorkflowContext.getContext(state);
+        CodeGenTypeEnum generationType = context.getGenerationType();
+        // HTML 和 MULTI_FILE 类型不需要构建，直接结束
+        if (generationType == CodeGenTypeEnum.HTML || generationType == CodeGenTypeEnum.MULTI_FILE) {
+            return "skip_build";
+        }
+        // VUE_PROJECT 需要构建
+        return "build";
+    }
 }

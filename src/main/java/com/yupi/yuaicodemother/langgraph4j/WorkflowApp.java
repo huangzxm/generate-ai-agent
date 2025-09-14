@@ -15,6 +15,9 @@ import java.util.Map;
 import static org.bsc.langgraph4j.StateGraph.END;
 import static org.bsc.langgraph4j.StateGraph.START;
 
+/**
+ * 工作流应用（模拟状态流转）
+ */
 @Slf4j
 public class WorkflowApp {
 
@@ -39,7 +42,7 @@ public class WorkflowApp {
 
         // 初始化 WorkflowContext - 只设置基本信息
         WorkflowContext initialContext = WorkflowContext.builder()
-                .originalPrompt("创建一个个人博客网站")
+                .originalPrompt("创建一个鱼皮的个人博客网站")
                 .currentStep("初始化")
                 .build();
         log.info("初始输入: {}", initialContext.getOriginalPrompt());
@@ -63,4 +66,3 @@ public class WorkflowApp {
         log.info("工作流执行完成！");
     }
 }
-

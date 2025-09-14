@@ -1,4 +1,4 @@
-package com.yupi.yuaicodemother.core.hander;
+package com.yupi.yuaicodemother.core.handler;
 
 import com.yupi.yuaicodemother.model.entity.User;
 import com.yupi.yuaicodemother.model.enums.ChatHistoryMessageTypeEnum;

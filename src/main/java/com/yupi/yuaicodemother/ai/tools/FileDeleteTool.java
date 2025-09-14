@@ -80,7 +80,7 @@ public class FileDeleteTool extends BaseTool {
 
     @Override
     public String getDisplayName() {
-        return "\uD83D\uDD27删除文件\uD83D\uDD27";
+        return "删除文件";
     }
 
     @Override

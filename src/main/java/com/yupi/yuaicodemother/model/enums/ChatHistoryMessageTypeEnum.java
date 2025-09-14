@@ -3,6 +3,9 @@ package com.yupi.yuaicodemother.model.enums;
 import cn.hutool.core.util.ObjUtil;
 import lombok.Getter;
 
+/**
+ * 对话历史消息枚举类型
+ */
 @Getter
 public enum ChatHistoryMessageTypeEnum {
 
@@ -36,4 +39,3 @@ public enum ChatHistoryMessageTypeEnum {
         return null;
     }
 }
-

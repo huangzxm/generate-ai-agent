@@ -1,6 +1,5 @@
-package com.yupi.yuaicodemother.core.hander;
+package com.yupi.yuaicodemother.core.handler;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -14,7 +13,6 @@ import com.yupi.yuaicodemother.model.enums.ChatHistoryMessageTypeEnum;
 import com.yupi.yuaicodemother.service.ChatHistoryService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -31,6 +29,7 @@ public class JsonMessageStreamHandler {
 
     @Resource
     private VueProjectBuilder vueProjectBuilder;
+
     @Resource
     private ToolManager toolManager;
 
@@ -95,7 +94,9 @@ public class JsonMessageStreamHandler {
                 if (toolId != null && !seenToolIds.contains(toolId)) {
                     // 第一次调用这个工具，记录 ID 并完整返回工具信息
                     seenToolIds.add(toolId);
+                    // 根据工具名称获取工具实例
                     BaseTool tool = toolManager.getTool(toolName);
+                    // 返回格式化的工具调用信息
                     return tool.generateToolRequestResponse();
                 } else {
                     // 不是第一次调用这个工具，直接返回空
@@ -104,9 +105,9 @@ public class JsonMessageStreamHandler {
             }
             case TOOL_EXECUTED -> {
                 ToolExecutedMessage toolExecutedMessage = JSONUtil.toBean(chunk, ToolExecutedMessage.class);
-                String toolName = toolExecutedMessage.getName();
                 JSONObject jsonObject = JSONUtil.parseObj(toolExecutedMessage.getArguments());
-                // 工具执行结果，根据工具类型处理
+                // 根据工具名称获取工具实例
+                String toolName = toolExecutedMessage.getName();
                 BaseTool tool = toolManager.getTool(toolName);
                 String result = tool.generateToolExecutedResult(jsonObject);
                 // 输出前端和要持久化的内容

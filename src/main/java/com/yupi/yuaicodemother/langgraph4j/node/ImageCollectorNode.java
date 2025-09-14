@@ -75,7 +75,6 @@ public class ImageCollectorNode {
                 // 等待所有任务完成并收集结果
                 CompletableFuture<Void> allTasks = CompletableFuture.allOf(
                         futures.toArray(new CompletableFuture[0]));
-                // 阻塞全部图片收集任务完成
                 allTasks.join();
                 // 收集所有结果
                 for (CompletableFuture<List<ImageResource>> future : futures) {
