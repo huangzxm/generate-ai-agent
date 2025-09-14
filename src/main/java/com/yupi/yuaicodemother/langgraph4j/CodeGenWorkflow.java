@@ -4,6 +4,7 @@ import com.yupi.yuaicodemother.exception.BusinessException;
 import com.yupi.yuaicodemother.exception.ErrorCode;
 import com.yupi.yuaicodemother.langgraph4j.node.*;
 import com.yupi.yuaicodemother.langgraph4j.state.WorkflowContext;
+import com.yupi.yuaicodemother.model.enums.CodeGenTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.bsc.langgraph4j.CompiledGraph;
 import org.bsc.langgraph4j.GraphRepresentation;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 import static org.bsc.langgraph4j.StateGraph.END;
 import static org.bsc.langgraph4j.StateGraph.START;
+import static org.bsc.langgraph4j.action.AsyncEdgeAction.edge_async;
 
 @Slf4j
 public class CodeGenWorkflow {
@@ -39,6 +41,14 @@ public class CodeGenWorkflow {
                     .addEdge("prompt_enhancer", "router")
                     .addEdge("router", "code_generator")
                     .addEdge("code_generator", "project_builder")
+                    .addEdge("router", "code_generator")
+                    // 使用条件边：根据代码生成类型决定是否需要构建
+                    .addConditionalEdges("code_generator",
+                            edge_async(this::routeBuildOrSkip),
+                            Map.of(
+                                    "build", "project_builder",  // 需要构建的情况
+                                    "skip_build", END             // 跳过构建直接结束
+                            ))
                     .addEdge("project_builder", END)
 
                     // 编译工作流
@@ -80,5 +90,17 @@ public class CodeGenWorkflow {
         log.info("代码生成工作流执行完成！");
         return finalContext;
     }
+
+    private String routeBuildOrSkip(MessagesState<String> state) {
+        WorkflowContext context = WorkflowContext.getContext(state);
+        CodeGenTypeEnum generationType = context.getGenerationType();
+        // HTML 和 MULTI_FILE 类型不需要构建，直接结束
+        if (generationType == CodeGenTypeEnum.HTML || generationType == CodeGenTypeEnum.MULTI_FILE) {
+            return "skip_build";
+        }
+        // VUE_PROJECT 需要构建
+        return "build";
+    }
+
 }
 
