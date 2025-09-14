@@ -99,9 +99,19 @@ public class CodeGenConcurrentWorkflow {
         log.info("开始执行并发代码生成工作流");
         WorkflowContext finalContext = null;
         int stepCounter = 1;
+        // 配置并发执行
+        ExecutorService pool = ExecutorBuilder.create()
+                .setCorePoolSize(10)
+                .setMaxPoolSize(20)
+                .setWorkQueue(new LinkedBlockingQueue<>(100))
+                .setThreadFactory(ThreadFactoryBuilder.create().setNamePrefix("Parallel-Image-Collect").build())
+                .build();
+        RunnableConfig runnableConfig = RunnableConfig.builder()
+                .addParallelNodeExecutor("image_plan", pool)
+                .build();
         for (NodeOutput<MessagesState<String>> step : workflow.stream(
-                Map.of(WorkflowContext.WORKFLOW_CONTEXT_KEY, initialContext)
-        )) {
+                Map.of(WorkflowContext.WORKFLOW_CONTEXT_KEY, initialContext),
+                runnableConfig)) {
             log.info("--- 第 {} 步完成 ---", stepCounter);
             WorkflowContext currentContext = WorkflowContext.getContext(step.state());
             if (currentContext != null) {
