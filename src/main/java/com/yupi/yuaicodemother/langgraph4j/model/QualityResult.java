@@ -9,9 +9,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 代码质量检查结果
- */
 @Data
 @Builder
 @NoArgsConstructor
