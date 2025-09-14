@@ -1,6 +1,6 @@
 package com.yupi.yuaicodemother.langgraph4j.ai;
 
-import com.yupi.yuaicodemother.langgraph4j.node.ImageCollectionPlan;
+import com.yupi.yuaicodemother.langgraph4j.model.ImageCollectionPlan;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 
