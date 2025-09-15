@@ -2,7 +2,7 @@ package com.yupi.yuaicodemother.ai;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.yupi.yuaicodemother.ai.tools.ToolManager;
+import com.yupi.yuaicodemother.ai.tools.*;
 import com.yupi.yuaicodemother.exception.BusinessException;
 import com.yupi.yuaicodemother.exception.ErrorCode;
 import com.yupi.yuaicodemother.model.enums.CodeGenTypeEnum;
@@ -30,12 +30,6 @@ public class AiCodeGeneratorServiceFactory {
 
     @Resource(name = "openAiChatModel")
     private ChatModel chatModel;
-
-    @Resource
-    private StreamingChatModel openAiStreamingChatModel;
-
-    @Resource
-    private StreamingChatModel reasoningStreamingChatModel;
 
     @Resource
     private RedisChatMemoryStore redisChatMemoryStore;
@@ -105,6 +99,7 @@ public class AiCodeGeneratorServiceFactory {
         return switch (codeGenType) {
             // Vue 项目生成，使用工具调用和推理模型
             case VUE_PROJECT -> {
+                // 使用多例模式的 StreamingChatModel 解决并发问题
                 StreamingChatModel reasoningStreamingChatModel = SpringContextUtil.getBean("reasoningStreamingChatModelPrototype", StreamingChatModel.class);
                 yield AiServices.builder(AiCodeGeneratorService.class)
                         .chatModel(chatModel)
@@ -120,10 +115,11 @@ public class AiCodeGeneratorServiceFactory {
             }
             // HTML 和 多文件生成，使用流式对话模型
             case HTML, MULTI_FILE -> {
-                StreamingChatModel streamingChatModelPrototype = SpringContextUtil.getBean("streamingChatModelPrototype", StreamingChatModel.class);
+                // 使用多例模式的 StreamingChatModel 解决并发问题
+                StreamingChatModel openAiStreamingChatModel = SpringContextUtil.getBean("streamingChatModelPrototype", StreamingChatModel.class);
                 yield AiServices.builder(AiCodeGeneratorService.class)
                         .chatModel(chatModel)
-                        .streamingChatModel(streamingChatModelPrototype)
+                        .streamingChatModel(openAiStreamingChatModel)
                         .chatMemory(chatMemory)
                         .build();
             }
