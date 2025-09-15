@@ -132,6 +132,12 @@
             <artifactId>langgraph4j-studio-springboot</artifactId>
             <version>1.6.0-rc2</version>
         </dependency>
+        <!-- Redisson -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.50.0</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
