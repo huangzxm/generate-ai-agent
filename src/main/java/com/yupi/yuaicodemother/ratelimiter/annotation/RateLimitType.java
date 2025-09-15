@@ -1,4 +1,4 @@
-package com.yupi.yuaicodemother.ratelimiter;
+package com.yupi.yuaicodemother.ratelimiter.annotation;
 
 public enum RateLimitType {
     
