@@ -17,6 +17,9 @@ import java.util.List;
 @Data
 public class ReasoningStreamingChatModelConfig {
 
+    @Resource
+    private AiModelMonitorListener aiModelMonitorListener;
+
     private String baseUrl;
 
     private String apiKey;
@@ -31,9 +34,9 @@ public class ReasoningStreamingChatModelConfig {
 
     private Boolean logResponses = false;
 
-    @Resource
-    private AiModelMonitorListener aiModelMonitorListener;
-
+    /**
+     * 推理流式模型（用于 Vue 项目生成，带工具调用）
+     */
     @Bean
     @Scope("prototype")
     public StreamingChatModel reasoningStreamingChatModelPrototype() {

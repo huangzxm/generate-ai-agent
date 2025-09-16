@@ -4,6 +4,9 @@ import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.guardrail.OutputGuardrail;
 import dev.langchain4j.guardrail.OutputGuardrailResult;
 
+/**
+ * 重试输出护轨
+ */
 public class RetryOutputGuardrail implements OutputGuardrail {
 
     @Override

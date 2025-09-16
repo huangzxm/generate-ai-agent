@@ -12,10 +12,16 @@ import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 
+/**
+ * 流式对话模型配置
+ */
 @Configuration
 @ConfigurationProperties(prefix = "langchain4j.open-ai.streaming-chat-model")
 @Data
 public class StreamingChatModelConfig {
+
+    @Resource
+    private AiModelMonitorListener aiModelMonitorListener;
 
     private String baseUrl;
 
@@ -31,9 +37,9 @@ public class StreamingChatModelConfig {
 
     private boolean logResponses;
 
-    @Resource
-    private AiModelMonitorListener aiModelMonitorListener;
-
+    /**
+     * 流式模型
+     */
     @Bean
     @Scope("prototype")
     public StreamingChatModel streamingChatModelPrototype() {

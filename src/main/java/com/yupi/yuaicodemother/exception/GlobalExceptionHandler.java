@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 处理SSE请求的错误响应
-     * 
+     *
      * @param errorCode 错误码
      * @param errorMessage 错误信息
      * @return true表示是SSE请求并已处理，false表示不是SSE请求
@@ -58,8 +58,8 @@ public class GlobalExceptionHandler {
         // 判断是否是SSE请求（通过Accept头或URL路径）
         String accept = request.getHeader("Accept");
         String uri = request.getRequestURI();
-        if ((accept != null && accept.contains("text/event-stream")) || 
-            uri.contains("/chat/gen/code")) {
+        if ((accept != null && accept.contains("text/event-stream")) ||
+                uri.contains("/chat/gen/code")) {
             try {
                 // 设置SSE响应头
                 response.setContentType("text/event-stream");
@@ -68,9 +68,9 @@ public class GlobalExceptionHandler {
                 response.setHeader("Connection", "keep-alive");
                 // 构造错误消息的SSE格式
                 Map<String, Object> errorData = Map.of(
-                    "error", true,
-                    "code", errorCode,
-                    "message", errorMessage
+                        "error", true,
+                        "code", errorCode,
+                        "message", errorMessage
                 );
                 String errorJson = JSONUtil.toJsonStr(errorData);
                 // 发送业务错误事件（避免与标准error事件冲突）

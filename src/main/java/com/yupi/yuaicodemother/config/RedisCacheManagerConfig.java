@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -37,7 +36,7 @@ public class RedisCacheManagerConfig {
                 // key 使用 String 序列化器
                 .serializeKeysWith(RedisSerializationContext.SerializationPair
                         .fromSerializer(new StringRedisSerializer()));
-                // value 使用 JSON 序列化器（支持复杂对象）
+//                // value 使用 JSON 序列化器（支持复杂对象）但是要注意开启后需要给序列化增加默认类型配置，否则无法反序列化
 //                .serializeValuesWith(RedisSerializationContext.SerializationPair
 //                        .fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper)));
 
@@ -48,4 +47,4 @@ public class RedisCacheManagerConfig {
                         defaultConfig.entryTtl(Duration.ofMinutes(5)))
                 .build();
     }
-}
+} 

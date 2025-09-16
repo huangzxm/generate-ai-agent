@@ -1,5 +1,7 @@
 package com.yupi.yuaicodemother.ratelimter.annotation;
 
+import com.yupi.yuaicodemother.ratelimter.enums.RateLimitType;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

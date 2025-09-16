@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Prompt 安全审查护轨
+ */
 public class PromptSafetyInputGuardrail implements InputGuardrail {
 
     // 敏感词列表
@@ -51,4 +54,4 @@ public class PromptSafetyInputGuardrail implements InputGuardrail {
         }
         return success();
     }
-}
+} 

@@ -20,7 +20,7 @@ public class CacheKeyUtils {
         if (obj == null) {
             return DigestUtil.md5Hex("null");
         }
-        // 先转JSON，再MD5
+        // 先转 JSON，再转 MD5
         String jsonStr = JSONUtil.toJsonStr(obj);
         return DigestUtil.md5Hex(jsonStr);
     }

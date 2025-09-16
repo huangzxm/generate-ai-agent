@@ -1,4 +1,4 @@
-package com.yupi.yuaicodemother.ratelimter.annotation;
+package com.yupi.yuaicodemother.ratelimter.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

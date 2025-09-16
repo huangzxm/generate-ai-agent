@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * 监控上下文（需要传递的数据）
+ */
 @Data
 @Builder
 @NoArgsConstructor

@@ -19,7 +19,7 @@ import com.yupi.yuaicodemother.model.entity.App;
 import com.yupi.yuaicodemother.model.entity.User;
 import com.yupi.yuaicodemother.model.vo.AppVO;
 import com.yupi.yuaicodemother.ratelimter.annotation.RateLimit;
-import com.yupi.yuaicodemother.ratelimter.annotation.RateLimitType;
+import com.yupi.yuaicodemother.ratelimter.enums.RateLimitType;
 import com.yupi.yuaicodemother.service.AppService;
 import com.yupi.yuaicodemother.service.ProjectDownloadService;
 import com.yupi.yuaicodemother.service.UserService;
