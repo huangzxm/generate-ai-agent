@@ -16,11 +16,11 @@
           应用详情
         </a-button>
         <a-button
-          type="primary"
-          ghost
-          @click="downloadCode"
-          :loading="downloading"
-          :disabled="!isOwner"
+            type="primary"
+            ghost
+            @click="downloadCode"
+            :loading="downloading"
+            :disabled="!isOwner"
         >
           <template #icon>
             <DownloadOutlined />
@@ -72,11 +72,11 @@
 
         <!-- 选中元素信息展示 -->
         <a-alert
-          v-if="selectedElementInfo"
-          class="selected-element-alert"
-          type="info"
-          closable
-          @close="clearSelectedElement"
+            v-if="selectedElementInfo"
+            class="selected-element-alert"
+            type="info"
+            closable
+            @close="clearSelectedElement"
         >
           <template #message>
             <div class="selected-element-info">
@@ -113,29 +113,29 @@
           <div class="input-wrapper">
             <a-tooltip v-if="!isOwner" title="无法在别人的作品下对话哦~" placement="top">
               <a-textarea
+                  v-model:value="userInput"
+                  :placeholder="getInputPlaceholder()"
+                  :rows="4"
+                  :maxlength="1000"
+                  @keydown.enter.prevent="sendMessage"
+                  :disabled="isGenerating || !isOwner"
+              />
+            </a-tooltip>
+            <a-textarea
+                v-else
                 v-model:value="userInput"
                 :placeholder="getInputPlaceholder()"
                 :rows="4"
                 :maxlength="1000"
                 @keydown.enter.prevent="sendMessage"
-                :disabled="isGenerating || !isOwner"
-              />
-            </a-tooltip>
-            <a-textarea
-              v-else
-              v-model:value="userInput"
-              :placeholder="getInputPlaceholder()"
-              :rows="4"
-              :maxlength="1000"
-              @keydown.enter.prevent="sendMessage"
-              :disabled="isGenerating"
+                :disabled="isGenerating"
             />
             <div class="input-actions">
               <a-button
-                type="primary"
-                @click="sendMessage"
-                :loading="isGenerating"
-                :disabled="!isOwner"
+                  type="primary"
+                  @click="sendMessage"
+                  :loading="isGenerating"
+                  :disabled="!isOwner"
               >
                 <template #icon>
                   <SendOutlined />
@@ -151,12 +151,12 @@
           <h3>生成后的网页展示</h3>
           <div class="preview-actions">
             <a-button
-              v-if="isOwner && previewUrl"
-              type="link"
-              :danger="isEditMode"
-              @click="toggleEditMode"
-              :class="{ 'edit-mode-active': isEditMode }"
-              style="padding: 0; height: auto; margin-right: 12px"
+                v-if="isOwner && previewUrl"
+                type="link"
+                :danger="isEditMode"
+                @click="toggleEditMode"
+                :class="{ 'edit-mode-active': isEditMode }"
+                style="padding: 0; height: auto; margin-right: 12px"
             >
               <template #icon>
                 <EditOutlined />
@@ -181,11 +181,11 @@
             <p>正在生成网站...</p>
           </div>
           <iframe
-            v-else
-            :src="previewUrl"
-            class="preview-iframe"
-            frameborder="0"
-            @load="onIframeLoad"
+              v-else
+              :src="previewUrl"
+              class="preview-iframe"
+              frameborder="0"
+              @load="onIframeLoad"
           ></iframe>
         </div>
       </div>
@@ -193,18 +193,18 @@
 
     <!-- 应用详情弹窗 -->
     <AppDetailModal
-      v-model:open="appDetailVisible"
-      :app="appInfo"
-      :show-actions="isOwner || isAdmin"
-      @edit="editApp"
-      @delete="deleteApp"
+        v-model:open="appDetailVisible"
+        :app="appInfo"
+        :show-actions="isOwner || isAdmin"
+        @edit="editApp"
+        @delete="deleteApp"
     />
 
     <!-- 部署成功弹窗 -->
     <DeploySuccessModal
-      v-model:open="deployModalVisible"
-      :deploy-url="deployUrl"
-      @open-site="openDeployedSite"
+        v-model:open="deployModalVisible"
+        :deploy-url="deployUrl"
+        @open-site="openDeployedSite"
     />
   </div>
 </template>
@@ -323,12 +323,12 @@ const loadChatHistory = async (isLoadMore = false) => {
       if (chatHistories.length > 0) {
         // 将对话历史转换为消息格式，并按时间正序排列（老消息在前）
         const historyMessages: Message[] = chatHistories
-          .map((chat) => ({
-            type: (chat.messageType === 'user' ? 'user' : 'ai') as 'user' | 'ai',
-            content: chat.message || '',
-            createTime: chat.createTime,
-          }))
-          .reverse() // 反转数组，让老消息在前
+            .map((chat) => ({
+              type: (chat.messageType === 'user' ? 'user' : 'ai') as 'user' | 'ai',
+              content: chat.message || '',
+              createTime: chat.createTime,
+            }))
+            .reverse() // 反转数组，让老消息在前
         if (isLoadMore) {
           // 加载更多时，将历史消息添加到开头
           messages.value.unshift(...historyMessages)
@@ -383,10 +383,10 @@ const fetchAppInfo = async () => {
       // 检查是否需要自动发送初始提示词
       // 只有在是自己的应用且没有对话历史时才自动发送
       if (
-        appInfo.value.initPrompt &&
-        isOwner.value &&
-        messages.value.length === 0 &&
-        historyLoaded.value
+          appInfo.value.initPrompt &&
+          isOwner.value &&
+          messages.value.length === 0 &&
+          historyLoaded.value
       ) {
         await sendInitialMessage(appInfo.value.initPrompt)
       }

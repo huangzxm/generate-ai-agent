@@ -37,6 +37,11 @@ const router = createRouter({
       component: AppManagePage,
     },
     {
+      path: '/admin/chatManage',
+      name: '对话管理',
+      component: ChatManagePage,
+    },
+    {
       path: '/app/chat/:id',
       name: '应用对话',
       component: AppChatPage,
@@ -45,11 +50,6 @@ const router = createRouter({
       path: '/app/edit/:id',
       name: '编辑应用',
       component: AppEditPage,
-    },
-    {
-      path: '/admin/chatManage',
-      name: '对话管理',
-      component: ChatManagePage,
     },
   ],
 })

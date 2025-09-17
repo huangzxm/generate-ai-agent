@@ -6,7 +6,7 @@ import com.yupi.yuaicodemother.model.entity.App;
 /**
  * 应用 映射层。
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
+ * @author <a href="https://github.com/huangzxm">huangzxm</a>
  */
 public interface AppMapper extends BaseMapper<App> {
 
