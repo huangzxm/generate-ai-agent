@@ -2,11 +2,13 @@
   <a-layout-header class="header">
     <a-row :wrap="false">
       <!-- 左侧：Logo和标题 -->
-      <a-col flex="200px">
+      <a-col flex="240px">
         <RouterLink to="/">
           <div class="header-left">
-            <img class="logo" src="@/assets/logo.png" alt="Logo" />
-            <h1 class="site-title">AI应用生成</h1>
+            <img class="logo" src="@/assets/geek-logo.svg" alt="GeekAI Logo" />
+            <h1 class="site-title">
+              <span class="title-geek">Geek</span><span class="title-ai">AI</span>
+            </h1>
           </div>
         </RouterLink>
       </a-col>
@@ -133,28 +135,87 @@ const doLogout = async () => {
 
 <style scoped>
 .header {
-  background: #fff;
-  padding: 0 24px;
+  background: var(--geek-bg-card);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--geek-border);
+  padding: 0 32px;
+  box-shadow: var(--geek-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.header-left:hover {
+  transform: translateY(-1px);
 }
 
 .logo {
-  height: 48px;
-  width: 48px;
+  height: 40px;
+  width: 40px;
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.3));
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.5));
+  transform: rotate(5deg);
 }
 
 .site-title {
   margin: 0;
-  font-size: 18px;
-  color: #1890ff;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+}
+
+.title-geek {
+  background: var(--geek-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-ai {
+  color: var(--geek-text-primary);
+  text-shadow: 0 0 10px var(--geek-primary);
 }
 
 .ant-menu-horizontal {
   border-bottom: none !important;
+  background: transparent !important;
+}
+
+.user-login-status {
+  color: var(--geek-text-primary);
+}
+
+.user-login-status .ant-avatar {
+  border: 2px solid var(--geek-primary);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.user-login-status .ant-btn {
+  background: var(--geek-gradient-primary);
+  border: none;
+  color: var(--geek-bg-primary);
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 4px 20px;
+  height: auto;
+  box-shadow: var(--geek-shadow-md);
+  transition: all 0.3s ease;
+}
+
+.user-login-status .ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--geek-shadow-lg);
 }
 </style>

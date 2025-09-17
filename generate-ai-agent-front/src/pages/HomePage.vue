@@ -161,8 +161,34 @@ onMounted(() => {
     <div class="container">
       <!-- 网站标题和描述 -->
       <div class="hero-section">
-        <h1 class="hero-title">AI 应用生成平台</h1>
-        <p class="hero-description">一句话轻松创建网站应用</p>
+        <div class="hero-badge">
+          <span class="badge-text">// 极客专属</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="title-line">GeekAI</span>
+          <span class="title-line">应用生成平台</span>
+        </h1>
+        <p class="hero-description">
+          <span class="code-bracket">{</span>
+          一行代码，无限可能
+          <span class="code-bracket">}</span>
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">应用生成</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">99.9%</span>
+            <span class="stat-label">成功率</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">< 30s</span>
+            <span class="stat-label">生成时间</span>
+          </div>
+        </div>
       </div>
 
       <!-- 用户提示词输入框 -->
@@ -225,7 +251,11 @@ onMounted(() => {
 
       <!-- 我的作品 -->
       <div class="section">
-        <h2 class="section-title">我的作品</h2>
+        <h2 class="section-title">
+          <span class="section-icon">📁</span>
+          <span class="section-text">./my-projects</span>
+          <span class="section-cursor">_</span>
+        </h2>
         <div class="app-grid">
           <AppCard
             v-for="app in myApps"
@@ -249,7 +279,11 @@ onMounted(() => {
 
       <!-- 精选案例 -->
       <div class="section">
-        <h2 class="section-title">精选案例</h2>
+        <h2 class="section-title">
+          <span class="section-icon">⭐</span>
+          <span class="section-text">./featured-demos</span>
+          <span class="section-cursor">_</span>
+        </h2>
         <div class="featured-grid">
           <AppCard
             v-for="app in featuredApps"
@@ -281,16 +315,12 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background:
-    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 8%, #e2e8f0 20%, #cbd5e1 100%),
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  background: var(--geek-gradient-bg);
   position: relative;
   overflow: hidden;
 }
 
-/* 科技感网格背景 */
+/* 极客风格矩阵背景 */
 #homePage::before {
   content: '';
   position: absolute;
@@ -299,20 +329,20 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(91, 115, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91, 115, 255, 0.05) 1px, transparent 1px);
   background-size:
-    100px 100px,
-    100px 100px,
-    20px 20px,
-    20px 20px;
+    80px 80px,
+    80px 80px,
+    16px 16px,
+    16px 16px;
   pointer-events: none;
-  animation: gridFloat 20s ease-in-out infinite;
+  animation: matrixFlow 25s linear infinite;
 }
 
-/* 动态光效 */
+/* 极客风格动态光效 */
 #homePage::after {
   content: '';
   position: absolute;
@@ -322,33 +352,38 @@ onMounted(() => {
   bottom: 0;
   background:
     radial-gradient(
-      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(59, 130, 246, 0.08) 0%,
-      rgba(139, 92, 246, 0.06) 40%,
+      800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(0, 212, 255, 0.15) 0%,
+      rgba(91, 115, 255, 0.1) 30%,
+      rgba(156, 39, 176, 0.08) 60%,
       transparent 80%
     ),
-    linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.04) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.04) 50%, transparent 70%);
+    conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(0, 212, 255, 0.05) 90deg, transparent 180deg, rgba(91, 115, 255, 0.05) 270deg, transparent 360deg);
   pointer-events: none;
-  animation: lightPulse 8s ease-in-out infinite alternate;
+  animation: geekGlow 12s ease-in-out infinite alternate;
 }
 
-@keyframes gridFloat {
-  0%,
-  100% {
+@keyframes matrixFlow {
+  0% {
     transform: translate(0, 0);
   }
-  50% {
-    transform: translate(5px, 5px);
+  100% {
+    transform: translate(80px, 80px);
   }
 }
 
-@keyframes lightPulse {
+@keyframes geekGlow {
   0% {
-    opacity: 0.3;
+    opacity: 0.4;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: rotate(180deg) scale(1.05);
   }
   100% {
-    opacity: 0.7;
+    opacity: 0.6;
+    transform: rotate(360deg) scale(1);
   }
 }
 
@@ -364,12 +399,11 @@ onMounted(() => {
 
 /* 移除居中光束效果 */
 
-/* 英雄区域 */
+/* 极客风格英雄区域 */
 .hero-section {
   text-align: center;
-  padding: 80px 0 60px;
-  margin-bottom: 28px;
-  color: #1e293b;
+  padding: 100px 0 80px;
+  margin-bottom: 40px;
   position: relative;
   overflow: hidden;
 }
@@ -382,118 +416,223 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(ellipse 800px 400px at center, rgba(59, 130, 246, 0.12) 0%, transparent 70%),
-    linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.05) 50%, transparent 70%),
-    linear-gradient(-45deg, transparent 30%, rgba(16, 185, 129, 0.04) 50%, transparent 70%);
-  animation: heroGlow 10s ease-in-out infinite alternate;
+    radial-gradient(ellipse 1000px 500px at center, rgba(0, 212, 255, 0.2) 0%, transparent 70%),
+    conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(91, 115, 255, 0.1) 120deg, transparent 240deg);
+  animation: heroMatrix 15s ease-in-out infinite alternate;
 }
 
-@keyframes heroGlow {
+@keyframes heroMatrix {
   0% {
-    opacity: 0.6;
-    transform: scale(1);
+    opacity: 0.7;
+    transform: scale(1) rotate(0deg);
   }
   100% {
     opacity: 1;
-    transform: scale(1.02);
+    transform: scale(1.05) rotate(5deg);
   }
 }
 
-@keyframes rotate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+.hero-badge {
+  display: inline-block;
+  margin-bottom: 24px;
+  padding: 8px 20px;
+  background: var(--geek-bg-glass);
+  border: 1px solid var(--geek-border);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 3;
+}
+
+.badge-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--geek-primary);
+  font-weight: 500;
 }
 
 .hero-title {
-  font-size: 56px;
-  font-weight: 700;
-  margin: 0 0 20px;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
+  font-size: 64px;
+  font-weight: 800;
+  margin: 0 0 32px;
+  line-height: 1.1;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -2px;
+  position: relative;
+  z-index: 3;
+}
+
+.title-line {
+  display: block;
+  background: var(--geek-gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -1px;
-  position: relative;
-  z-index: 2;
-  animation: titleShimmer 3s ease-in-out infinite;
+  animation: titleGlow 4s ease-in-out infinite alternate;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
 }
 
-@keyframes titleShimmer {
-  0%,
-  100% {
-    background-position: 0% 50%;
+@keyframes titleGlow {
+  0% {
+    filter: brightness(1) saturate(1);
   }
-  50% {
-    background-position: 100% 50%;
+  100% {
+    filter: brightness(1.2) saturate(1.3);
   }
 }
 
 .hero-description {
-  font-size: 20px;
-  margin: 0;
-  opacity: 0.8;
-  color: #64748b;
+  font-size: 24px;
+  margin: 0 0 48px;
+  color: var(--geek-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
-/* 输入区域 */
+.code-bracket {
+  color: var(--geek-primary);
+  font-weight: 600;
+  margin: 0 8px;
+  animation: bracketPulse 2s ease-in-out infinite;
+}
+
+@keyframes bracketPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-top: 48px;
+  position: relative;
+  z-index: 3;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--geek-primary);
+  font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: var(--geek-text-muted);
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--geek-border);
+  opacity: 0.5;
+}
+
+/* 极客风格输入区域 */
 .input-section {
   position: relative;
-  margin: 0 auto 24px;
-  max-width: 800px;
+  margin: 0 auto 32px;
+  max-width: 900px;
 }
 
 .prompt-input {
-  border-radius: 16px;
-  border: none;
+  border-radius: 12px;
+  border: 1px solid var(--geek-border);
   font-size: 16px;
-  padding: 20px 60px 20px 20px;
-  background: rgba(255, 255, 255, 0.95);
+  padding: 24px 80px 24px 24px;
+  background: var(--geek-bg-glass);
   backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--geek-shadow-md);
+  color: var(--geek-text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.prompt-input::placeholder {
+  color: var(--geek-text-muted);
+  font-style: italic;
 }
 
 .prompt-input:focus {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  border-color: var(--geek-primary);
+  box-shadow: var(--geek-shadow-lg), 0 0 0 3px rgba(0, 212, 255, 0.1);
   transform: translateY(-2px);
+  background: rgba(26, 31, 46, 0.9);
 }
 
 .input-actions {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 16px;
+  right: 16px;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
 }
 
-/* 快捷按钮 */
+.input-actions .ant-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  background: var(--geek-gradient-primary);
+  border: none;
+  color: var(--geek-bg-primary);
+  box-shadow: var(--geek-shadow-glow);
+  transition: all 0.3s ease;
+}
+
+.input-actions .ant-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--geek-shadow-lg), 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+/* 极客风格快捷按钮 */
 .quick-actions {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   flex-wrap: wrap;
 }
 
 .quick-actions .ant-btn {
-  border-radius: 25px;
-  padding: 8px 20px;
+  border-radius: 8px;
+  padding: 12px 24px;
   height: auto;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  color: #475569;
+  background: var(--geek-bg-glass);
+  border: 1px solid var(--geek-border);
+  color: var(--geek-text-secondary);
   backdrop-filter: blur(15px);
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .quick-actions .ant-btn::before {
@@ -503,8 +642,9 @@ onMounted(() => {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  transition: left 0.5s;
+  background: var(--geek-gradient-primary);
+  opacity: 0.1;
+  transition: left 0.4s ease;
 }
 
 .quick-actions .ant-btn:hover::before {
@@ -512,65 +652,151 @@ onMounted(() => {
 }
 
 .quick-actions .ant-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(59, 130, 246, 0.4);
-  color: #3b82f6;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+  background: var(--geek-bg-card);
+  border-color: var(--geek-primary);
+  color: var(--geek-primary);
+  transform: translateY(-3px);
+  box-shadow: var(--geek-shadow-md);
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
-/* 区域标题 */
+/* 极客风格区域标题 */
 .section {
-  margin-bottom: 60px;
+  margin-bottom: 80px;
 }
 
 .section-title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
-  margin-bottom: 32px;
-  color: #1e293b;
+  margin-bottom: 40px;
+  color: var(--geek-text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
 }
 
-/* 我的作品网格 */
-.app-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  margin-bottom: 32px;
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 100%;
+  background: var(--geek-gradient-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
 }
 
-/* 精选案例网格 */
+.section-icon {
+  font-size: 24px;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.section-text {
+  color: var(--geek-primary);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.section-cursor {
+  color: var(--geek-primary);
+  animation: cursorBlink 1.5s infinite;
+  font-weight: 400;
+}
+
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* 极客风格网格布局 */
+.app-grid,
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 32px;
+  margin-bottom: 48px;
 }
 
-/* 分页 */
+/* 极客风格分页 */
 .pagination-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 48px;
 }
 
-/* 响应式设计 */
+.pagination-wrapper .ant-pagination {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.pagination-wrapper .ant-pagination .ant-pagination-item {
+  background: var(--geek-bg-glass);
+  border: 1px solid var(--geek-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.pagination-wrapper .ant-pagination .ant-pagination-item:hover {
+  border-color: var(--geek-primary);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+}
+
+.pagination-wrapper .ant-pagination .ant-pagination-item-active {
+  background: var(--geek-gradient-primary);
+  border-color: var(--geek-primary);
+  box-shadow: var(--geek-shadow-glow);
+}
+
+.pagination-wrapper .ant-pagination .ant-pagination-item-active a {
+  color: var(--geek-bg-primary);
+  font-weight: 600;
+}
+
+/* 极客风格响应式设计 */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 32px;
+    font-size: 40px;
   }
 
   .hero-description {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .stat-divider {
+    width: 40px;
+    height: 1px;
   }
 
   .app-grid,
   .featured-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .quick-actions {
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .input-section {
+    max-width: 100%;
+  }
+
+  .prompt-input {
+    padding: 20px 70px 20px 20px;
   }
 }
 </style>

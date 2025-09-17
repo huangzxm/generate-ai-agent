@@ -56,42 +56,84 @@ const handleViewWork = () => {
 
 <style scoped>
 .app-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
+  background: var(--geek-gradient-card);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+  box-shadow: var(--geek-shadow-md);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--geek-border);
+  transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
+}
+
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--geek-gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-card:hover::before {
+  opacity: 0.05;
 }
 
 .app-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--geek-shadow-lg);
+  border-color: var(--geek-primary);
+}
+
+.app-card--featured {
+  border: 2px solid var(--geek-primary);
+  box-shadow: var(--geek-shadow-glow);
+}
+
+.app-card--featured::after {
+  content: '⭐ FEATURED';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--geek-gradient-primary);
+  color: var(--geek-bg-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  z-index: 3;
 }
 
 .app-preview {
-  height: 180px;
-  background: #f5f5f5;
+  height: 200px;
+  background: var(--geek-bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  z-index: 1;
 }
 
 .app-preview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.9) contrast(1.1);
 }
 
 .app-placeholder {
   font-size: 48px;
-  color: #d9d9d9;
+  color: var(--geek-text-muted);
+  filter: grayscale(1);
+  opacity: 0.6;
 }
 
 .app-overlay {
@@ -100,27 +142,63 @@ const handleViewWork = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(10, 14, 26, 0.8);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
 
 .app-card:hover .app-overlay {
   opacity: 1;
 }
 
+.app-overlay .ant-btn {
+  background: var(--geek-gradient-primary);
+  border: none;
+  color: var(--geek-bg-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: var(--geek-shadow-md);
+  transition: all 0.3s ease;
+}
+
+.app-overlay .ant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--geek-shadow-lg);
+}
+
+.app-overlay .ant-btn[type="default"] {
+  background: var(--geek-bg-glass);
+  color: var(--geek-text-primary);
+  border: 1px solid var(--geek-border);
+}
+
 .app-info {
-  padding: 16px;
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .app-info-left {
   flex-shrink: 0;
+}
+
+.app-info-left .ant-avatar {
+  border: 2px solid var(--geek-border);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+  background: var(--geek-bg-secondary);
+  color: var(--geek-text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
 }
 
 .app-info-right {
@@ -131,19 +209,29 @@ const handleViewWork = () => {
 .app-title {
   font-size: 16px;
   font-weight: 600;
-  margin: 0 0 4px;
-  color: #1a1a1a;
+  margin: 0 0 6px;
+  color: var(--geek-text-primary);
+  font-family: 'JetBrains Mono', monospace;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.1);
 }
 
 .app-author {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: var(--geek-text-muted);
   margin: 0;
+  font-family: 'JetBrains Mono', monospace;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0.8;
+}
+
+.app-author::before {
+  content: '// ';
+  color: var(--geek-primary);
+  opacity: 0.6;
 }
 </style>

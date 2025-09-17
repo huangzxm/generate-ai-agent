@@ -1,35 +1,100 @@
 @import './base.css';
 
+/* 极客风格全局样式 */
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   font-weight: normal;
+  background: var(--geek-gradient-bg);
+  min-height: 100vh;
+  position: relative;
 }
 
-a,
-.green {
+/* 全局链接样式 */
+a {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  color: var(--geek-primary);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+a:hover {
+  color: var(--geek-secondary);
+  text-shadow: 0 0 8px var(--geek-primary);
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+/* 极客风格按钮 */
+.ant-btn-primary {
+  background: var(--geek-gradient-primary) !important;
+  border: none !important;
+  box-shadow: var(--geek-shadow-md) !important;
+  transition: all 0.3s ease !important;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.ant-btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--geek-shadow-lg) !important;
+}
+
+/* 极客风格输入框 */
+.ant-input,
+.ant-textarea {
+  background: var(--geek-bg-glass) !important;
+  border: 1px solid var(--geek-border) !important;
+  color: var(--geek-text-primary) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.ant-input:focus,
+.ant-textarea:focus {
+  border-color: var(--geek-primary) !important;
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2) !important;
+}
+
+/* 极客风格卡片 */
+.ant-card {
+  background: var(--geek-gradient-card) !important;
+  border: 1px solid var(--geek-border) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: var(--geek-shadow-md) !important;
+}
+
+/* 极客风格菜单 */
+.ant-menu {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ant-menu-item {
+  color: var(--geek-text-secondary) !important;
+}
+
+.ant-menu-item:hover,
+.ant-menu-item-selected {
+  color: var(--geek-primary) !important;
+  background: rgba(0, 212, 255, 0.1) !important;
+}
+
+/* 极客风格分页 */
+.ant-pagination {
+  color: var(--geek-text-secondary) !important;
+}
+
+.ant-pagination .ant-pagination-item {
+  background: var(--geek-bg-glass) !important;
+  border: 1px solid var(--geek-border) !important;
+}
+
+.ant-pagination .ant-pagination-item a {
+  color: var(--geek-text-secondary) !important;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background: var(--geek-gradient-primary) !important;
+  border-color: var(--geek-primary) !important;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  color: var(--geek-bg-primary) !important;
 }
